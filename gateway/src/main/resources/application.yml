@@ -1,0 +1,27 @@
+## spring.application.name= gateway
+#作为唯一前台访问流量入口，请求匹配后转发到后台微服务
+#区别直接调用后台服务：网关地址 + Application注册名 == 对应项目根路径
+server:
+  port: 8766
+
+spring:
+  application:
+    name: eureka-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          #discovery.locator.enabled 该配置是否启动根据Eureka注册中心的信息自动映射路由，
+          #如果我们设置为true 那么我们不需要在配置中配置路由routes
+          #配置路由属性中：如 路径过滤 - Path=/zzzgd/** # 请求地址携带zzzgd的,则转发
+          enabled: true
+          #lower-case-service-id 这个配置是开启小写功能的（默认大写），因为在Eureka中
+          #服务注册都是以大写来注册的，如果你想用小写来访问就开启这个。
+          lower-case-service-id: true
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka # 指定服务注册中心
