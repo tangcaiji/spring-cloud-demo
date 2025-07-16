@@ -36,5 +36,14 @@ public class TestController {
         return testService.test(a);
     }
 
+    //调用方式二: 使用@FeignClient调用注册子模块接口方法
+    @GetMapping("/3/{a}")
+    public String test3(@PathVariable("a") String a){
+
+        String b = testService.test2(a);
+        //b = b + "|<-->|" + testService.test22(a);
+        return b;
+    }
+
 
 }

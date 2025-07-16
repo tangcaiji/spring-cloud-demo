@@ -2,6 +2,9 @@ package com.tang.consumer.test;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 //注册子模块名称
 @FeignClient(value = "EUREKA-PRODUCER")
@@ -15,8 +18,14 @@ public interface TestService {
      * 2）在服务调用方加入: feign-httpclient-enabled: true
      * 或者修改服务方访问方式：post
      */
-    //接口访问地址
+    //接口访问地址【负载均衡的策略】
     @GetMapping("test/t")
-    String test(String name);
+    String test(@RequestParam String name);
+    //测试负载均衡：feign默认是轮询的策略，演示的也是轮询，就是请求服务实例挨个一个一个来。
+    @PostMapping("/test/t2")
+    String test2(@RequestParam String a);
+
+    @PostMapping("/test/t22")
+    String test22(@RequestBody String a);
 
 }
