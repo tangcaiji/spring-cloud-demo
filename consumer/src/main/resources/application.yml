@@ -11,3 +11,5 @@ eureka:
   client:
     service-url:
       default-zone: http://localhost:8761/eureka # 指定服务注册中心
+
+#Feign开启熔断器，在feignClient注解上新增fallback注解，值为具体处理类

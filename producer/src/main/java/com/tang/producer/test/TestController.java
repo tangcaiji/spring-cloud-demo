@@ -28,6 +28,13 @@ public class TestController {
     @PostMapping("/t2")
     public String test3(@RequestParam String a){
 
+        try{
+            //Thread.sleep(500);
+            //Thread.sleep(1500*2);//超过熔断器默认请求时间
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         return "测试负载均衡：欢迎访问本接口[端口号" + port + "] == 请求参数：" + a;
     }
 
@@ -35,6 +42,19 @@ public class TestController {
     public String test5(@RequestBody String a){
 
         return "测试负载均衡：欢迎访问本接口/t22[端口号" + port + "] == @RequestBody->接收请求参数：" + a;
+    }
+
+    @GetMapping("/hy")
+    public String hy(){
+
+        try{
+            //Thread.sleep(500);
+            Thread.sleep(1500);//超过熔断器默认请求时间
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return "熔断器测试返回 -- 端口："  + port;
     }
 
 

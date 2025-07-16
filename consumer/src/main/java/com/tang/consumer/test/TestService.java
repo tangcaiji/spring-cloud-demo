@@ -28,4 +28,7 @@ public interface TestService {
     @PostMapping("/test/t22")
     String test22(@RequestBody String a);
 
+    @GetMapping("/test/hy")
+    String hy();
+
 }
